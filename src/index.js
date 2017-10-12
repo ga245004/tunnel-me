@@ -1,7 +1,7 @@
 const lt = require('localtunnel');
 const qrcode = require('qrcode-terminal');
 const express = require('express')
-
+var exec = require('child_process').execSync;
 
 var argv = {};
 
@@ -59,7 +59,14 @@ app.get('/', function (req, res) {
 });
 
 app.get('/lock', function (req, res) {
-    res.send('Hello World!')
+  
+    var cmd = "rundll32.exe user32.dll, LockWorkStation";
+    
+    var options = {
+      encoding: 'utf8'
+    };
+    
+    res.send(exec(cmd, options));
 });
 
 
