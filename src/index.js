@@ -1,5 +1,5 @@
-let lt = require('localtunnel');
-
+const lt = require('localtunnel');
+const qrcode = require('qrcode-terminal');
 const express = require('express')
 
 
@@ -27,8 +27,21 @@ lt(opt.port, opt, function(err, tunnel) {
     if (err) {
         throw err;
     }
+    console.log('your url is: %s', tunnel.url);
+
+    qrcode.generate(tunnel.url, function (qrcode) {
+        console.log(qrcode);
+    });
 
     console.log('your url is: %s', tunnel.url);
+
+    console.log('');
+    console.log('');
+    console.log('');
+    qrcode.generate(tunnel.url, function (qrcode) {
+        console.log(qrcode);
+    });
+
 
     tunnel.on('error', function(err) {
         throw err;
